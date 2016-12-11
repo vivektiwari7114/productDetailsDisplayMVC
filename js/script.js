@@ -5,7 +5,7 @@
 
 
 var model ={
-    
+    currItem: '',
     itemList : [],
     'listOfItems': function(){
         model.pushValue();
@@ -53,6 +53,18 @@ var model ={
             }
         }
         
+    },
+    'updateInformation': function(changesName){
+        var currItem = model.currItem;
+        var itemList = model.listOfItems()[0];
+        for(var i=0; i < itemList.length; i++){
+            if(itemList[i].id === currItem.id){
+               itemList[i].name = changesName;
+                break;
+            }
+        }
+        
+        
     }
     
 };
@@ -66,8 +78,23 @@ var view ={
            var clickedId = event.target.id;
             var clickedItem = controller.getCurrentItem(clickedId);
             view.renderDetailsView(clickedItem);
+            controller.setCurrentItem(clickedItem);
             
-     });
+        });
+        
+        $('#generateAdmin').click(function(){
+            console.log('button clicked');
+            $('#adminView').show();
+            
+        });
+        
+        $('#saveName').click(function(){
+            var changesName = $('#adminNameInput').val();
+            
+        controller.updateInformation(changesName);
+            
+            
+        });
         
     } ,
     'displayItemView': function(){
@@ -80,6 +107,9 @@ var view ={
         }
          $('#listOfItems').html('');
          $('#listOfItems').append(schema);
+    },
+    'getAdminNameValue': function(){
+        
     },
     'renderDetailsView': function(clickedItem){
         console.log(clickedItem);
@@ -110,6 +140,13 @@ var controller = {
     },
     'listOfItems': function(){
         return model.listOfItems()[0];
+    },
+    'setCurrentItem': function(clickedItem){
+        model.currItem =  clickedItem;
+    },
+    'updateInformation': function(changesName){
+        model.updateInformation(changesName);
+        view.displayItemView();
     }
 };
 
