@@ -64,17 +64,14 @@ var view ={
         
         $('#listOfItems').click(function(event){
            var clickedId = event.target.id;
-            var clickedItem = model.getCurrentItem(clickedId);
-            console.log(clickedItem);
+            var clickedItem = controller.getCurrentItem(clickedId);
             view.renderDetailsView(clickedItem);
             
-            
-            
-        });
+     });
         
     } ,
     'displayItemView': function(){
-        var itemList = model.listOfItems()[0];
+        var itemList = controller.listOfItems();
         console.log(itemList);
         var schema = '';
         
@@ -106,7 +103,14 @@ var controller = {
         
         view.init();
         
-    }   
+    } ,
+    'getCurrentItem': function(clickedId){
+        return model.getCurrentItem(clickedId);
+        
+    },
+    'listOfItems': function(){
+        return model.listOfItems()[0];
+    }
 };
 
 controller.initilaize();
