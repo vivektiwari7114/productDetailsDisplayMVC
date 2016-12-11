@@ -60,6 +60,7 @@ var model ={
         for(var i=0; i < itemList.length; i++){
             if(itemList[i].id === currItem.id){
                itemList[i].name = changesName;
+                
                 break;
             }
         }
@@ -92,7 +93,7 @@ var view ={
             var changesName = $('#adminNameInput').val();
             
         controller.updateInformation(changesName);
-            
+          
             
         });
         
@@ -107,9 +108,6 @@ var view ={
         }
          $('#listOfItems').html('');
          $('#listOfItems').append(schema);
-    },
-    'getAdminNameValue': function(){
-        
     },
     'renderDetailsView': function(clickedItem){
         console.log(clickedItem);
@@ -146,7 +144,8 @@ var controller = {
     },
     'updateInformation': function(changesName){
         model.updateInformation(changesName);
-        view.displayItemView();
+      view.displayItemView();
+        view.renderDetailsView(model.currItem);
     }
 };
 
